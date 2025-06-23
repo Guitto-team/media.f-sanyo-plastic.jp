@@ -7,8 +7,8 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <Link href={`/`} scroll={false} className={styles.home}>
-        <i className={styles.icon}>
-          <Image src={'/images/logo.png'} alt={'福島三洋プラスチック工業株式会社'} width={166} height={14} />
+        <i className={styles.logo}>
+          <Image src={'/images/logo.png'} alt={'福島三洋プラスチック工業株式会社'} width={384} height={44} />
         </i>
       </Link>
       <ul className={styles.lists}>
