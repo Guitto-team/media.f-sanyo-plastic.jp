@@ -8,7 +8,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 3%;
-  background-color: var(--white);
+  background-color: rgba(35, 0, 0, 0.6) !important;
   border-bottom: 1px solid var(--border-c);
   height: var(--header-height);
   @include mq {

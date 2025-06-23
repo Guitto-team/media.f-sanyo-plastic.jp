@@ -8,7 +8,7 @@ export default function Header() {
     <header className={styles.header}>
       <Link href={`/`} scroll={false} className={styles.home}>
         <i className={styles.icon}>
-          <Image src={'/images/logo.svg'} alt={'GUITTO BLOG'} width={166} height={14} />
+          <Image src={'/images/logo.png'} alt={'福島三洋プラスチック工業株式会社'} width={166} height={14} />
         </i>
       </Link>
       <ul className={styles.lists}>
@@ -21,7 +21,7 @@ export default function Header() {
         </li>
         <li className={styles.listsItem}>
           <Link
-            href={`https://www.guitto.co.jp/contact`}
+            href={`https://www.f-sanyo-plastic.jp/`}
             scroll={false}
             className={styles.link}
             target='_blank'
