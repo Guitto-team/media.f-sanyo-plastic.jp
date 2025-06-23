@@ -1,0 +1,78 @@
+.Typography {
+  font-size: 1em;
+}
+
+// html
+.h1 {
+  font-size: 24px;
+  @include mq {
+    font-size: 28px;
+  }
+}
+.h2 {
+  font-size: 22px;
+  @include mq {
+    font-size: 26px;
+  }
+}
+.h3 {
+  border-bottom: 1px solid var(--border-c);
+  font-size: 20px;
+  @include mq {
+    font-size: 24px;
+  }
+}
+.h4 {
+  font-size: 18px;
+  @include mq {
+    font-size: 22px;
+  }
+}
+.h5 {
+  font-size: 16px;
+  @include mq {
+    font-size: 20px;
+  }
+}
+.h6 {
+  font-size: 14px;
+  @include mq {
+    font-size: 18px;
+  }
+}
+.p {
+  font-size: 1em;
+}
+
+// weight
+.bold {
+  font-weight: bold;
+}
+.normal {
+  font-weight: normal;
+}
+.light {
+  font-weight: lighter;
+}
+
+// textAlign
+.left {
+  text-align: left;
+}
+.center {
+  text-align: center;
+}
+.right {
+  text-align: right;
+}
+
+// color {
+.black {
+  color: var(--black);
+}
+.white {
+  color: var(--white);
+}
+.main {
+  color: var(--main-c);
+}

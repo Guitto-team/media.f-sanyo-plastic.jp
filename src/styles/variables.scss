@@ -1,0 +1,28 @@
+$breakpoints: (
+  "xs": "screen and (min-width: 576px)",
+  "sm": "screen and (min-width: 640px)",
+  "md": "screen and (min-width: 768px)",
+  "lg": "screen and (min-width: 1024px)",
+  "contents": "screen and (min-width: 1200px)",
+  "xl": "screen and (min-width: 1280px)",
+  "xxl": "screen and (min-width: 1440px)",
+  "-sm": "screen and (max-width: 639px)",
+  "-md": "screen and (max-width: 767px)",
+) !default;
+
+@mixin mq($breakpoint: md) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+@mixin shadow() {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 8px;
+}
+
+@mixin hover_color-change() {
+  transition: filter 0.3s ease-in-out;
+  &:hover {
+    filter: invert(84%) sepia(21%) saturate(1285%) hue-rotate(26deg) brightness(84%) contrast(84%);
+  }
+}

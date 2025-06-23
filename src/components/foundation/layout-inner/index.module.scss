@@ -1,0 +1,19 @@
+.LayoutInner {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.small {
+  max-width: var(--inner-width-small);
+}
+.medium {
+  max-width: var(--inner-width-medium);
+}
+.large {
+  max-width: var(--inner-width-large);
+}
+
+.full {
+  max-width: none;
+}
