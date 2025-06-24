@@ -24,7 +24,7 @@ export default function CategoryId({ blogs, recommendBlogs, category, tag, id })
       <Sidebar categories={category} tags={tag} />
 
       <Main>
-        <LayoutInner size='small'>
+        <LayoutInner size='large'>
           <LayoutStack>
             <Typography html='h1' textAlign='center'>「{target.name}」の記事一覧</Typography>
 

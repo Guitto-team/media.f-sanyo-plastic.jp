@@ -19,7 +19,7 @@ export default function Home({ blogs, totalCount, category, tag }) {
       <Header />
       <Sidebar categories={category} tags={tag} />
       <Main>
-        <LayoutInner size='small'>
+        <LayoutInner size='large'>
           <LayoutStack>
             <motion.div
               initial={{ opacity: 0, y: "10%" }} // 初期状態
