@@ -9,7 +9,7 @@ import '../styles/custom.scss'
 function MyApp({ Component, pageProps, router }) {
   // Google Tag Manager start
   useEffect(() => {
-    TagManager.initialize({ gtmId: 'GTM-W3ZXMH8' })
+    TagManager.initialize({ gtmId: 'GTM-KXKK9QK' })
   }, [])
 
   useEffect(() => {
