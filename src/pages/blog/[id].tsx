@@ -31,12 +31,12 @@ export default function BlogId({ blog, recommendBlogs, categoryBlogs, category, 
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
 
   // 構造化データ（JSON-LD）
-  const structuredData = {
+  const structuredData = blog ? {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": blog.title,
-    "description": blog.description,
-    "image": blog.eyecatch?.url,
+    "headline": blog.title || '',
+    "description": blog.description || '',
+    "image": blog.eyecatch?.url || '',
     "author": {
       "@type": "Organization",
       "name": "福島三洋プラスチック工業株式会社"
@@ -49,13 +49,13 @@ export default function BlogId({ blog, recommendBlogs, categoryBlogs, category, 
         "url": "https://media.f-sanyo-plastic.jp/images/logo.png"
       }
     },
-    "datePublished": blog.publishedAt,
-    "dateModified": blog.updatedAt,
+    "datePublished": blog.publishedAt || '',
+    "dateModified": blog.updatedAt || '',
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": shareUrl
     }
-  };
+  } : null;
 
   return blog && (
     <>
@@ -70,10 +70,12 @@ export default function BlogId({ blog, recommendBlogs, categoryBlogs, category, 
         tags={blog.tag?.map(tag => tag.name) || []}
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      {structuredData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      )}
 
       <Header />
       <Sidebar categories={category} tags={tag} />
@@ -216,35 +218,79 @@ export default function BlogId({ blog, recommendBlogs, categoryBlogs, category, 
 
 // 静的生成のためのパスを指定します
 export const getStaticPaths = async () => {
-  const data = await client.get({ endpoint: 'blog' });
+  try {
+    const data = await client.get({ endpoint: 'blog' });
 
-  const paths = data.contents.map((content) => `/blog/${content.id}`);
-  return { paths, fallback: true };
+    if (!data || !data.contents) {
+      return {
+        paths: [],
+        fallback: true,
+      };
+    }
+
+    const paths = data.contents.map((content) => `/blog/${content.id}`);
+    return {
+      paths,
+      fallback: true
+    };
+  } catch (error) {
+    console.error('Error in getStaticPaths:', error);
+    return {
+      paths: [],
+      fallback: true,
+    };
+  }
 };
 
 // データをテンプレートに受け渡す部分の処理を記述します
 export const getStaticProps = async (context) => {
-  const id = context.params.id;
-  const data = await client.get({ endpoint: 'blog', contentId: id });
-  const recommend = await client.get({
-    endpoint: 'blog',
-    queries: { filters: `recommend[equals]true[and]id[not_equals]${id}` },
-  });
-  const categoryId = data.category.id;
-  const category = await client.get({
-    endpoint: 'blog',
-    queries: { filters: `category[equals]${categoryId}[and]id[not_equals]${id}` },
-  });
-  const categoryData = await client.get({ endpoint: 'categories' });
-  const tagData = await client.get({ endpoint: 'tags' });
+  try {
+    const id = context.params.id;
 
-  return {
-    props: {
-      blog: data,
-      recommendBlogs: recommend.contents,
-      categoryBlogs: category.contents,
-      category: categoryData.contents,
-      tag: tagData.contents,
-    },
-  };
+    // ブログデータの取得
+    const data = await client.get({ endpoint: 'blog', contentId: id });
+
+    // データが存在しない場合は404を返す
+    if (!data) {
+      return {
+        notFound: true,
+      };
+    }
+
+    // おすすめ記事の取得
+    const recommend = await client.get({
+      endpoint: 'blog',
+      queries: { filters: `recommend[equals]true[and]id[not_equals]${id}` },
+    });
+
+    // 同じカテゴリーの記事の取得
+    let category = { contents: [] };
+    if (data.category && data.category.id) {
+      category = await client.get({
+        endpoint: 'blog',
+        queries: { filters: `category[equals]${data.category.id}[and]id[not_equals]${id}` },
+      });
+    }
+
+    // カテゴリーデータの取得
+    const categoryData = await client.get({ endpoint: 'categories' });
+
+    // タグデータの取得
+    const tagData = await client.get({ endpoint: 'tags' });
+
+    return {
+      props: {
+        blog: data,
+        recommendBlogs: recommend.contents || [],
+        categoryBlogs: category.contents || [],
+        category: categoryData.contents || [],
+        tag: tagData.contents || [],
+      },
+    };
+  } catch (error) {
+    console.error('Error in getStaticProps:', error);
+    return {
+      notFound: true,
+    };
+  }
 };
