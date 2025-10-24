@@ -30,12 +30,49 @@ export default function BlogId({ blog, recommendBlogs, categoryBlogs, category, 
   // 共有用URLを取得
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
 
+  // 構造化データ（JSON-LD）
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": blog.title,
+    "description": blog.description,
+    "image": blog.eyecatch?.url,
+    "author": {
+      "@type": "Organization",
+      "name": "福島三洋プラスチック工業株式会社"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "福島三洋プラスチック工業株式会社",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://media.f-sanyo-plastic.jp/images/logo.png"
+      }
+    },
+    "datePublished": blog.publishedAt,
+    "dateModified": blog.updatedAt,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": shareUrl
+    }
+  };
+
   return blog && (
     <>
       <Seo
         title={blog.title}
         description={blog.description}
         imageUrl={blog.eyecatch?.url}
+        article={true}
+        publishedTime={blog.publishedAt}
+        modifiedTime={blog.updatedAt}
+        author="福島三洋プラスチック工業株式会社"
+        tags={blog.tag?.map(tag => tag.name) || []}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       <Header />
@@ -82,8 +119,8 @@ export default function BlogId({ blog, recommendBlogs, categoryBlogs, category, 
                   </LineShareButton>
                 </Flex>
               </motion.div>
-                {/* {blog.recommend && (<span className={styles.recommend}>おすすめ</span>)} */}
-              
+              {/* {blog.recommend && (<span className={styles.recommend}>おすすめ</span>)} */}
+
             </LayoutStack>
           </LayoutInner>
 
