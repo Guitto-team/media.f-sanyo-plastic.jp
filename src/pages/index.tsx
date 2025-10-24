@@ -30,7 +30,7 @@ export default function Home({ blogs, totalCount, category, tag }) {
             >
               <CardList contents={blogs} size="large" />
             </motion.div>
-            <Pagination currentPageNumber={1} maxPageNumber={Math.ceil(totalCount / 5)} />
+            <Pagination currentPageNumber={1} maxPageNumber={Math.ceil(totalCount / 10)} />
           </LayoutStack>
         </LayoutInner>
       </Main>
@@ -43,7 +43,7 @@ export default function Home({ blogs, totalCount, category, tag }) {
 // データをテンプレートに受け渡す部分の処理を記述します
 export const getStaticProps = async () => {
   const offset = 0;
-  const limit = 5;
+  const limit = 10;
   const queries = { offset: offset, limit: limit };
   const data = await client.get({ endpoint: 'blog', queries: queries });
   const categoryData = await client.get({ endpoint: 'categories' });

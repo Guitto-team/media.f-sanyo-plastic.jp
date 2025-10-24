@@ -30,7 +30,7 @@ export default function Home({ blogs, totalCount, currentPageNumber, category, t
             >
               <CardList contents={blogs} size="large" />
             </motion.div>
-            <Pagination currentPageNumber={currentPageNumber} maxPageNumber={Math.ceil(totalCount / 5)} />
+            <Pagination currentPageNumber={currentPageNumber} maxPageNumber={Math.ceil(totalCount / 10)} />
           </LayoutStack>
         </LayoutInner>
       </Main>
@@ -45,15 +45,15 @@ export const getStaticPaths = async () => {
   const data = await client.get({ endpoint: 'blog' });
 
   const { totalCount } = data;
-  const paths = range(1, Math.ceil(totalCount / 5)).map((i) => `/blog/page/${i}`);
+  const paths = range(1, Math.ceil(totalCount / 10)).map((i) => `/blog/page/${i}`);
   return { paths, fallback: false };
 };
 
 // データをテンプレートに受け渡す部分の処理を記述します
 export const getStaticProps = async (context) => {
   const numId = context.params.id;
-  const offset = (numId - 1) * 5;
-  const limit = 5;
+  const offset = (numId - 1) * 10;
+  const limit = 10;
   const queries = { offset: offset, limit: limit };
   const data = await client.get({ endpoint: 'blog', queries: queries });
 
