@@ -80,7 +80,15 @@ export default function Home({
       <Sidebar categories={categories} tags={tags} />
       <Main noPadding>
         <div className={styles.carouselContainer}>
-          <Carousel contents={recommendBlogs} />
+          <motion.div
+            initial={{ opacity: 0, y: "10%" }} // 初期状態
+            whileInView={{ opacity: 1, y: "0%" }} // マウント時
+            exit={{ opacity: 0, y: "10%" }}    // アンマウント時
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <Carousel contents={recommendBlogs} />
+          </motion.div>
         </div>
 
         <LayoutSection backgroundColor='none'>
@@ -112,7 +120,15 @@ export default function Home({
             {isLoading ? (
               <Typography>読み込み中...</Typography>
             ) : filteredBlogs.length > 0 ? (
-              <CardList contents={filteredBlogs} columnPc='col3' columnSp='col1' cardProps={{ cardType: 'column', info: 'full' }} />
+              <motion.div
+                initial={{ opacity: 0, y: "10%" }} // 初期状態
+                whileInView={{ opacity: 1, y: "0%" }} // マウント時
+                exit={{ opacity: 0, y: "10%" }}    // アンマウント時
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <CardList contents={filteredBlogs} columnPc='col3' columnSp='col1' cardProps={{ cardType: 'column', info: 'full' }} />
+              </motion.div>
             ) : (
               <Typography>該当する記事がありません</Typography>
             )}
