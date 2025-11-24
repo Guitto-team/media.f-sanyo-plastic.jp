@@ -93,110 +93,111 @@ export default function Home({
 
         <LayoutSection backgroundColor='none'>
           <LayoutInner size='large'>
-            <h2 className={styles.titlePickup}>PICKUP<span>以下ダミーテキスト以下ダミーテキスト</span></h2>
 
             {/* カテゴリー別タブナビゲーション */}
-            <div className={styles.tabNavigation}>
-              <button
-                className={classnames(styles.tab, selectedCategory === 'ALL' && styles.isActive)}
-                onClick={() => handleCategoryChange('ALL')}
-                disabled={isLoading}
-              >
-                ALL
-              </button>
-              {categories.map((category) => (
+            <motion.div
+              initial={{ opacity: 0, y: "10%" }} // 初期状態
+              whileInView={{ opacity: 1, y: "0%" }} // マウント時
+              exit={{ opacity: 0, y: "10%" }}    // アンマウント時
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className={styles.titlePickup}>PICKUP<span>以下ダミーテキスト以下ダミーテキスト</span></h2>
+
+              <div className={styles.tabNavigation}>
                 <button
-                  key={category.id}
-                  className={classnames(styles.tab, selectedCategory === category.id && styles.isActive)}
-                  onClick={() => handleCategoryChange(category.id)}
+                  className={classnames(styles.tab, selectedCategory === 'ALL' && styles.isActive)}
+                  onClick={() => handleCategoryChange('ALL')}
                   disabled={isLoading}
                 >
-                  {category.name}
+                  ALL
                 </button>
-              ))}
-            </div>
+                {categories.map((category) => (
+                  <button
+                    key={category.id}
+                    className={classnames(styles.tab, selectedCategory === category.id && styles.isActive)}
+                    onClick={() => handleCategoryChange(category.id)}
+                    disabled={isLoading}
+                  >
+                    {category.name}
+                  </button>
+                ))}
+              </div>
 
-            {/* カテゴリー別記事一覧 */}
-            {isLoading ? (
-              <Typography>読み込み中...</Typography>
-            ) : filteredBlogs.length > 0 ? (
-              <motion.div
-                initial={{ opacity: 0, y: "10%" }} // 初期状態
-                whileInView={{ opacity: 1, y: "0%" }} // マウント時
-                exit={{ opacity: 0, y: "10%" }}    // アンマウント時
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
+              {/* カテゴリー別記事一覧 */}
+              {isLoading ? (
+                <Typography>読み込み中...</Typography>
+              ) : filteredBlogs.length > 0 ? (
+
                 <CardList contents={filteredBlogs} columnPc='col3' columnSp='col1' cardProps={{ cardType: 'column', info: 'full' }} />
-              </motion.div>
-            ) : (
-              <Typography>該当する記事がありません</Typography>
-            )}
+              ) : (
+                <Typography>該当する記事がありません</Typography>
+              )}
 
-            <button onClick={moreButtonClick} className={styles.moreButton}>
-              + もっと見る
-            </button>
+              <button onClick={moreButtonClick} className={styles.moreButton}>
+                + もっと見る
+              </button>
+            </motion.div>
 
           </LayoutInner>
         </LayoutSection>
 
         <LayoutSection backgroundColor='lightbrown'>
-          <LayoutInner size='large'>
-            <div className={styles.newlyGrid}>
-              <LayoutStack margin='s6'>
-
-                <div className={styles.tagContainer}>
-                  <h2 className={styles.titleLg}>タグから探す</h2>
-                  <TagList contents={tags} justifyContent='j-flex-start' />
-                </div>
-
-                <div className={styles.newlyContainer}>
-                  <div id='newly'>
-                    <h2 className={styles.title}>新着<span>以下ダミーテキスト以下ダミーテキスト</span></h2>
+          <motion.div
+            initial={{ opacity: 0, y: "10%" }} // 初期状態
+            whileInView={{ opacity: 1, y: "0%" }} // マウント時
+            exit={{ opacity: 0, y: "10%" }}    // アンマウント時
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <LayoutInner size='large'>
+              <div className={styles.newlyGrid}>
+                <LayoutStack margin='s6'>
+                  <div className={styles.tagContainer}>
+                    <h2 className={styles.titleLg}>タグから探す</h2>
+                    <TagList contents={tags} justifyContent='j-flex-start' />
                   </div>
-                  <motion.div
-                    initial={{ opacity: 0, y: "10%" }} // 初期状態
-                    whileInView={{ opacity: 1, y: "0%" }} // マウント時
-                    exit={{ opacity: 0, y: "10%" }}    // アンマウント時
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                  >
+
+                  <div className={styles.newlyContainer}>
+                    <div id='newly'>
+                      <h2 className={styles.title}>新着<span>以下ダミーテキスト以下ダミーテキスト</span></h2>
+                    </div>
+
                     <CardList contents={newlyBlogs} columnPc='col1' columnSp='col2' cardProps={{ cardType: 'row', info: 'full', spSize: 'small' }} />
-                  </motion.div>
+                  </div>
+                </LayoutStack>
+
+                <div className={styles.bannerContainer}>
+                  <ul className={styles.bannerList}>
+                    <li className={styles.bannerItem}>
+                      <Link
+                        href={`https://www.f-sanyo-plastic.jp/`}
+                        scroll={false}
+                        className={styles.banner}
+                        target='_blank'
+                      >
+                        <Image src={'/images/banner-official.webp'} alt={'公式バナー'} width={300} height={141} />
+                      </Link>
+                    </li>
+                    <li className={styles.bannerItem}>
+                      <Link
+                        href={`https://bekopla.mirai-work.org/`}
+                        scroll={false}
+                        className={styles.banner}
+                        target='_blank'
+                      >
+                        <Image src={'/images/banner-online-shop.webp'} alt={'公式オンラインショップバナー'} width={300} height={171} />
+                      </Link>
+                    </li>
+                  </ul>
                 </div>
-
-              </LayoutStack>
-
-              <div className={styles.bannerContainer}>
-                <ul className={styles.bannerList}>
-                  <li className={styles.bannerItem}>
-                    <Link
-                      href={`https://www.f-sanyo-plastic.jp/`}
-                      scroll={false}
-                      className={styles.banner}
-                      target='_blank'
-                    >
-                      <Image src={'/images/banner-official.webp'} alt={'公式バナー'} width={300} height={141} />
-                    </Link>
-                  </li>
-                  <li className={styles.bannerItem}>
-                    <Link
-                      href={`https://bekopla.mirai-work.org/`}
-                      scroll={false}
-                      className={styles.banner}
-                      target='_blank'
-                    >
-                      <Image src={'/images/banner-online-shop.webp'} alt={'公式オンラインショップバナー'} width={300} height={171} />
-                    </Link>
-                  </li>
-                </ul>
               </div>
-            </div>
 
-            <div className={styles.paginationContainer}>
-              <Pagination currentPageNumber={1} maxPageNumber={Math.ceil(newlyTotalCount / limit)} />
-            </div>
-          </LayoutInner>
+              <div className={styles.paginationContainer}>
+                <Pagination currentPageNumber={1} maxPageNumber={Math.ceil(newlyTotalCount / limit)} />
+              </div>
+            </LayoutInner>
+          </motion.div>
         </LayoutSection>
       </Main>
       <Footer lightbrownBackground />
