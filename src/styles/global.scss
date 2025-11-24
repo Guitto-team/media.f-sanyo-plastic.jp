@@ -12,11 +12,13 @@
   --white: #fff;
   --offwhite: #f9f9f9;
   --black: #333333;
+  --semiblack: #1a1a1a;
   --grey: #CCCCCC;
   --darkgrey: #848c8f;
   --lightgrey: #ebf2f6;
   --ivory: #f5f1eb;
   --brown: #3C0D00;
+  --lightbrown: #F5F2EC;
   // メインカラー
   --main-c: var(--brown);
   // サブカラー
@@ -29,8 +31,8 @@
   --border-c: var(--grey);
 
   // ヘッダー高さ -----------------------------------
-  --header-height: 65px;
-  --header-height-pc: 65px;
+  --header-height: 86px;
+  --header-height-pc: 150px;
 
   //コンテンツ幅 ----------------------------
   --inner-width-small: 650px;
@@ -48,13 +50,19 @@
   --margin-s3: 25px;
   --margin-s4: 30px;
   --margin-s5: 50px;
-  
+  --margin-s6: 60px;
+  --margin-s7: 70px;
+  --margin-s8: 80px;
+  --margin-s9: 90px;
+  --margin-s10: 100px;
+
   // ベースフォントサイズ -----------------------------------
   --base-font-size: 16;
 
   //フォント -----------------------------------
   --gothic: 'Noto Sans JP', "メイリオ", Meiryo, " ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic ProN", "ＭＳ Ｐゴシック", Arial, Helvetica, sans-serif;
   --mincho: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "Sawarabi Mincho", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+  --en: 'Inter', sans-serif;
 }
 
 html {

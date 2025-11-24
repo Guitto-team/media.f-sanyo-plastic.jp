@@ -1,17 +1,50 @@
 .CardList {
   display: grid;
-  gap: 3rem;
-}
-
-.small {
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-}
-.medium {
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-}
-.large {
-  grid-template-columns: 1fr;
+  row-gap: 2rem;
+  column-gap: 0.5rem;
   @include mq {
+    row-gap: 3rem;
+    column-gap: 2rem;
+  }
+
+  &.row {
+    grid-template-columns: 1fr;
+  }
+
+  // SP用のカラム数
+  &.col1-sp {
+    grid-template-columns: 1fr;
+  }
+  &.col2-sp {
     grid-template-columns: repeat(2, 1fr);
   }
+  &.col3-sp {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  // PC用のカラム数
+  @include mq {
+    &.col1-pc {
+      grid-template-columns: 1fr;
+    }
+    &.col2-pc {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    &.col3-pc {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
 }
+
+// .small {
+//   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+// }
+// .medium {
+//   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+// }
+// .large {
+//   grid-template-columns: 1fr;
+//   @include mq {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+// }
