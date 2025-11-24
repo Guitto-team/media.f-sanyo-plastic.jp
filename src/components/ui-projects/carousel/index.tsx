@@ -69,7 +69,7 @@ export const Carousel: React.FC<CarouselProps> = ({ contents }) => {
           const isActive = activeIndex === index;
 
           return (
-            <SwiperSlide key={index} className={styles.slide}>
+            <SwiperSlide key={index}>
               <Link href={`/blog/${content.id}`} className={styles.card}>
                 <div className={styles.thumbnail}>
                   <Image

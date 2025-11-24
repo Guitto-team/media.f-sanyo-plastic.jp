@@ -8,85 +8,6 @@
 .swiper {
   overflow: visible;
   padding-bottom: 2rem;
-
-  :global(.swiper-wrapper) {
-    align-items: center;
-  }
-
-  :global(.swiper-button-prev),
-  :global(.swiper-button-next) {
-    display: grid;
-    place-content: center;
-    width: 40px;
-    height: 40px;
-    background: black;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    @include mq {
-      width: 50px;
-      height: 50px;
-    }
-
-    &:hover {
-      opacity: 0.8;
-    }
-
-    &:after {
-      content: '';
-      display: block;
-      width: 16px;
-      height: 16px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      @include mq {
-        width: 20px;
-        height: 20px;
-      }
-    }
-  }
-
-  :global(.swiper-button-prev) {
-    left: 3%;
-    @include mq {
-      left: 14.5%;
-    }
-    @include mq(xxl) {
-      left: 24.7%;
-    }
-
-    &:after {
-      background-image: url('/images/left-arrow.svg');
-    }
-  }
-
-  :global(.swiper-button-next) {
-    right: 3%;
-    @include mq {
-      right: 14.5%;
-    }
-    @include mq(xxl) {
-      right: 24.7%;
-    }
-
-    &:after {
-      background-image: url('/images/right-arrow.svg');
-    }
-  }
-
-  :global(.swiper-navigation-icon) {
-    display: none;
-  }
-
-  :global(.swiper-button-disabled) {
-    opacity: 0.35;
-  }
-}
-
-.slide {
-  display: flex;
-  justify-content: center;
-  padding: 0.5rem 0;
 }
 
 .card {
@@ -174,6 +95,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-weight: bold;
