@@ -7,6 +7,7 @@ import '../styles/global.scss'
 import '../styles/custom.scss'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import '../components/ui-projects/carousel/index.module.scss'
 
 function MyApp({ Component, pageProps, router }) {
   // Google Tag Manager start
