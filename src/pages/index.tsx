@@ -17,8 +17,8 @@ import { Carousel } from 'components/ui-projects/carousel';
 import styles from './index.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
-import classnames from 'classnames';
 import router from 'next/router';
+import { TabNavigation } from 'components/ui-parts/tab-navigation';
 
 export default function Home({
   limit,
@@ -104,25 +104,12 @@ export default function Home({
             >
               <h2 className={styles.titlePickup}>PICKUP<span>以下ダミーテキスト以下ダミーテキスト</span></h2>
 
-              <div className={styles.tabNavigation}>
-                <button
-                  className={classnames(styles.tab, selectedCategory === 'ALL' && styles.isActive)}
-                  onClick={() => handleCategoryChange('ALL')}
-                  disabled={isLoading}
-                >
-                  ALL
-                </button>
-                {categories.map((category) => (
-                  <button
-                    key={category.id}
-                    className={classnames(styles.tab, selectedCategory === category.id && styles.isActive)}
-                    onClick={() => handleCategoryChange(category.id)}
-                    disabled={isLoading}
-                  >
-                    {category.name}
-                  </button>
-                ))}
-              </div>
+              <TabNavigation
+                categories={categories}
+                selectedCategory={selectedCategory}
+                onChange={handleCategoryChange}
+                isLoading={isLoading}
+              />
 
               {/* カテゴリー別記事一覧 */}
               {isLoading ? (

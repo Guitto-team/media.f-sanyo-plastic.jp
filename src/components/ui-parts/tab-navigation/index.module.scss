@@ -1,0 +1,39 @@
+.tabNavigation {
+  width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 8px;
+  overflow: hidden;
+  margin: 2rem auto;
+  @include mq {
+    justify-content: center;
+  }
+}
+
+.tab {
+  padding: 0.25rem 0.35rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 5px 5px 0 0;
+  background-color: rgba($color: #cccccc, $alpha: 0.3);
+  border-bottom: 2px solid black;
+  color: #979797;
+  min-width: 90px;
+  @include mq {
+    padding: 0.5rem 1.5rem;
+    font-size: 14px;
+    min-width: 127px;
+  }
+
+  &:hover {
+    background-color: black;
+    color: var(--white);
+  }
+
+  &.isActive {
+    background-color: black;
+    color: var(--white);
+  }
+}

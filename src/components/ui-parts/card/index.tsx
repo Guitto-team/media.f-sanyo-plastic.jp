@@ -71,7 +71,7 @@ const CardBody: React.FC<CardBodyProps> = ({ content, info, cardType, published,
         gap='xsmall'
         flexWrap='wrap'
       >
-        <Category content={content.category.name} pcSize={pcSize} spSize={spSize} />
+        <Category content={content.category.name} pcSize={cardType === 'row' ? 'small' : pcSize} spSize={spSize} />
         {cardType === 'row' && content.tag && (
           content.tag.map((content) => (
             <Tag key={content.id} content={content} spSize={spSize} pcSize={pcSize} />
