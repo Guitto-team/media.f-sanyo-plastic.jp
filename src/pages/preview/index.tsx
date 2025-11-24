@@ -19,8 +19,9 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import { TwitterShareButton, FacebookShareButton, LineShareButton, PinterestShareButton, TwitterIcon, FacebookIcon, LineIcon, PinterestIcon } from "react-share";
+import Tag from 'components/ui-parts/tag';
 
-export default function BlogId({ blog, recommendBlogs, categoryBlogs, category, tag }) {
+export default function BlogId({ blog, categoryBlogs, category, tag }) {
 
   // 投稿日時の変換
   dayjs.extend(utc);
@@ -29,7 +30,7 @@ export default function BlogId({ blog, recommendBlogs, categoryBlogs, category, 
 
   // 共有用URLを取得
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
-  
+
   return (
     <>
       <Seo
@@ -110,9 +111,11 @@ export default function BlogId({ blog, recommendBlogs, categoryBlogs, category, 
 
           <LayoutInner size='medium'>
             <LayoutStack>
-              <Flex justifyContent='j-flex-start' gap='small'>
+              <Flex justifyContent='j-flex-start' gap='xsmall'>
                 {blog.category && <Category content={blog.category.name} />}
-                <TagList contents={blog.tag} />
+                {blog.tag.map((content) => (
+                  <Tag key={content.id} content={content} />
+                ))}
               </Flex>
             </LayoutStack>
           </LayoutInner>
@@ -122,13 +125,17 @@ export default function BlogId({ blog, recommendBlogs, categoryBlogs, category, 
               {categoryBlogs.length > 0 && (
                 <LayoutStack margin='s3'>
                   <Typography html='h3' textAlign='left'>同じカテゴリーの記事</Typography>
-                  <CardList contents={categoryBlogs} />
-                </LayoutStack>
-              )}
-              {recommendBlogs.length > 0 && (
-                <LayoutStack margin='s3'>
-                  <Typography html='h3' textAlign='left'>おすすめ記事</Typography>
-                  <CardList contents={recommendBlogs} />
+                  <CardList
+                    contents={categoryBlogs}
+                    columnPc='col3'
+                    columnSp='col2'
+                    cardProps={{
+                      cardType: 'column',
+                      info: 'title',
+                      spSize: 'small',
+                      pcSize: 'medium'
+                    }}
+                  />
                 </LayoutStack>
               )}
             </LayoutStack>
@@ -150,10 +157,6 @@ export const getServerSideProps = async (context) => {
     contentId: context.query.slug,
     queries: { draftKey: context.query.draftKey },
   });
-  const recommend = await client.get({
-    endpoint: 'blog',
-    queries: { filters: `recommend[equals]true[and]id[not_equals]${id}` },
-  });
   const categoryId = data.category.id;
   const category = await client.get({
     endpoint: 'blog',
@@ -164,9 +167,8 @@ export const getServerSideProps = async (context) => {
 
 
   return {
-    props: { 
+    props: {
       blog: data,
-      recommendBlogs: recommend.contents,
       categoryBlogs: category.contents,
       category: categoryData.contents,
       tag: tagData.contents,

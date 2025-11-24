@@ -15,17 +15,14 @@ import { motion, useScroll } from 'framer-motion'
 import { Typography } from 'components/ui-parts/typography';
 import { Eyecatch } from 'components/ui-parts/eyecatch';
 import { Category } from 'components/ui-parts/category';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
 import { TwitterShareButton, FacebookShareButton, LineShareButton, PinterestShareButton, TwitterIcon, FacebookIcon, LineIcon, PinterestIcon } from "react-share";
+import { formatPublishedDate } from 'utils/formatDate';
+import Tag from 'components/ui-parts/tag';
 
-export default function BlogId({ blog, recommendBlogs, categoryBlogs, category, tag }) {
+export default function BlogId({ blog, categoryBlogs, category, tag }) {
 
   // 投稿日時の変換
-  dayjs.extend(utc);
-  dayjs.extend(timezone);
-  const published = blog && dayjs.utc(blog.publishedAt)?.tz('Asia/Tokyo').format('YYYY.MM.DD');
+  const published = formatPublishedDate(blog?.publishedAt);
 
   // 共有用URLを取得
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
@@ -162,9 +159,11 @@ export default function BlogId({ blog, recommendBlogs, categoryBlogs, category, 
 
           <LayoutInner size='medium'>
             <LayoutStack>
-              <Flex justifyContent='j-flex-start' alignItems='a-center' gap='small' flexWrap='wrap'>
+              <Flex justifyContent='j-flex-start' alignItems='a-center' gap='xsmall' flexWrap='wrap'>
                 {blog.category && <Category content={blog.category.name} />}
-                <TagList contents={blog.tag} />
+                {blog.tag.map((content) => (
+                  <Tag key={content.id} content={content} />
+                ))}
               </Flex>
 
               <Flex justifyContent='j-flex-end' gap='xsmall'>
@@ -194,13 +193,17 @@ export default function BlogId({ blog, recommendBlogs, categoryBlogs, category, 
               {categoryBlogs.length > 0 && (
                 <LayoutStack margin='s3'>
                   <Typography html='h3' textAlign='left'>同じカテゴリーの記事</Typography>
-                  <CardList contents={categoryBlogs} />
-                </LayoutStack>
-              )}
-              {recommendBlogs.length > 0 && (
-                <LayoutStack margin='s3'>
-                  <Typography html='h3' textAlign='left'>おすすめ記事</Typography>
-                  <CardList contents={recommendBlogs} />
+                  <CardList
+                    contents={categoryBlogs}
+                    columnPc='col3'
+                    columnSp='col2'
+                    cardProps={{
+                      cardType: 'column',
+                      info: 'title',
+                      spSize: 'small',
+                      pcSize: 'medium'
+                    }}
+                  />
                 </LayoutStack>
               )}
             </LayoutStack>
@@ -257,12 +260,6 @@ export const getStaticProps = async (context) => {
       };
     }
 
-    // おすすめ記事の取得
-    const recommend = await client.get({
-      endpoint: 'blog',
-      queries: { filters: `recommend[equals]true[and]id[not_equals]${id}` },
-    });
-
     // 同じカテゴリーの記事の取得
     let category = { contents: [] };
     if (data.category && data.category.id) {
@@ -281,7 +278,6 @@ export const getStaticProps = async (context) => {
     return {
       props: {
         blog: data,
-        recommendBlogs: recommend.contents || [],
         categoryBlogs: category.contents || [],
         category: categoryData.contents || [],
         tag: tagData.contents || [],

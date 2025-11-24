@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Flex } from 'components/foundation/flex';
 import styles from './index.module.scss'
 
 export const Pagination = ({ maxPageNumber, currentPageNumber }) => {
@@ -14,31 +13,39 @@ export const Pagination = ({ maxPageNumber, currentPageNumber }) => {
   }
 
   return (
-    <Flex justifyContent='j-center' gap='small'>
-      {currentPageNumber !== 1 && (
-        <Link href={`/blog/page/${prevPage}`} className={styles.link}>
-          ＜
-        </Link>
-      )}
-
-      {pageNumbers.map((pageNumber) => {
-        const isActive = pageNumber === currentPageNumber;
-        return (
-          <Link
-            key={pageNumber}
-            href={`/blog/page/${pageNumber}`}
-            className={`${styles.number} ${isActive ? styles.isActive : ''}`}
-          >
-            {pageNumber}
+    <div className={styles.pagination}>
+      <div>
+        {currentPageNumber !== 1 && (
+          <Link href={`/blog/page/${prevPage}`} className={styles.arrow}>
+            ← Previous
           </Link>
-        );
-      })}
+        )}
+      </div>
 
-      {currentPageNumber !== maxPageNumber && (
-        <Link href={`/blog/page/${nextPage}`} className={styles.link}>
-          ＞
-        </Link>
-      )}
-    </Flex>
+      <ul className={styles.numberList}>
+        {pageNumbers.map((pageNumber) => {
+          const isActive = pageNumber === currentPageNumber;
+          return (
+            <li key={pageNumber} className={styles.numberItem}>
+              <Link
+                key={pageNumber}
+                href={`/blog/page/${pageNumber}`}
+                className={`${styles.number} ${isActive ? styles.isActive : ''}`}
+              >
+                {pageNumber}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+
+      <div>
+        {currentPageNumber !== maxPageNumber && (
+          <Link href={`/blog/page/${nextPage}`} className={styles.arrow}>
+            Next →
+          </Link>
+        )}
+      </div>
+    </div>
   );
 };

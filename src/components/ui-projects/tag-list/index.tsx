@@ -1,24 +1,25 @@
 import React from 'react';
-import styles from './index.module.scss';
-import classnames from 'classnames';
 import Flex from 'components/foundation/flex';
 import Tag from 'components/ui-parts/tag';
 
 export interface TagListProps {
   contents: any,
   justifyContent?: 'j-flex-start' | 'j-center' | 'j-flex-end' | 'j-between';
+  spSize?: 'small' | 'medium' | 'large';
+  pcSize?: 'small' | 'medium' | 'large';
 }
 
 export const TagList: React.FC<TagListProps> = ({
     contents,
     justifyContent = 'j-center',
+    spSize = 'medium',
+    pcSize = 'medium',
   }) => {
-    const classProps:string = classnames(styles.TagList)
   return (
-    <Flex justifyContent={justifyContent} gap='none' flexWrap='wrap'>
+    <Flex justifyContent={justifyContent} gap='xsmall' flexWrap='wrap'>
       {contents.map((content) => (
         <li key={content.id}>
-          <Tag content={content} />
+          <Tag content={content} spSize={spSize} pcSize={pcSize} />
         </li>
       ))}
     </Flex>

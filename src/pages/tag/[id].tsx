@@ -37,7 +37,17 @@ export default function TagId({ blogs, recommendBlogs, category, tag, id }) {
               {blogs.length === 0 ? (
                 <Typography html='h6' textAlign='center'>コンテンツがありません</Typography>
               ) : (
-                <CardList contents={blogs} size='large' />
+                <CardList
+                  contents={blogs}
+                  columnPc='col3'
+                  columnSp='col1'
+                  cardProps={{
+                    cardType: 'column',
+                    info: 'full',
+                    spSize: 'medium',
+                    pcSize: 'medium'
+                  }}
+                />
               )}
             </motion.div>
 
