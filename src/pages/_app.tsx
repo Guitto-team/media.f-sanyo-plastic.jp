@@ -8,6 +8,7 @@ import '../styles/custom.scss'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import '../components/ui-projects/carousel/index.module.scss'
+import './index.module.scss'
 
 function MyApp({ Component, pageProps, router }) {
   // Google Tag Manager start
@@ -22,7 +23,7 @@ function MyApp({ Component, pageProps, router }) {
 
   return (
     <>
-      <AnimatePresence exitBeforeEnter onExitComplete={() => window.scrollTo(0, 0)}>
+      <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
         <Component key={router.asPath} {...pageProps} />
       </AnimatePresence>
     </>
