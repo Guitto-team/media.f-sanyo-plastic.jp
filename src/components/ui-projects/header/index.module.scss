@@ -28,13 +28,17 @@
 .home {
   display: grid;
   place-content: center;
-  height: auto;
+  height: 80%;
   max-width: 87%;
   text-decoration: none;
   aspect-ratio: 384 / 44;
   margin-top: auto;
   @include mq {
     margin-top: unset;
+  }
+
+  svg {
+    height: 100%;
   }
 
   path {
