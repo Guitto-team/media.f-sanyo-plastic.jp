@@ -19,6 +19,10 @@ function MyApp({ Component, pageProps, router }) {
   }, [])
   // Google Tag Manager end
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [router.asPath])
+
   return (
     <>
       <Component key={router.asPath} {...pageProps} />
