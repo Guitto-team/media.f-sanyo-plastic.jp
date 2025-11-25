@@ -20,7 +20,16 @@ import Image from 'next/image';
 import router from 'next/router';
 import { TabNavigation } from 'components/ui-parts/tab-navigation';
 
-export default function Home({
+export interface HomeProps {
+  limit: number;
+  newlyBlogs: any[];
+  recommendBlogs: any[];
+  newlyTotalCount: number;
+  recommendTotalCount: number;
+  categories: any[];
+  tags: any[];
+}
+export const Home: React.FC<HomeProps> = ({
   limit,
   newlyBlogs,
   recommendBlogs,
@@ -28,7 +37,7 @@ export default function Home({
   recommendTotalCount,
   categories,
   tags
-}) {
+}) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [filteredBlogs, setFilteredBlogs] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -83,7 +92,7 @@ export default function Home({
           <motion.div
             initial={{ opacity: 0, y: "10%" }} // 初期状態
             whileInView={{ opacity: 1, y: "0%" }} // マウント時
-            exit={{ opacity: 0, y: "10%" }}    // アンマウント時
+            exit={{ opacity: 0, y: 0 }}    // アンマウント時（元の位置に戻す）
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
@@ -98,7 +107,7 @@ export default function Home({
             <motion.div
               initial={{ opacity: 0, y: "10%" }} // 初期状態
               whileInView={{ opacity: 1, y: "0%" }} // マウント時
-              exit={{ opacity: 0, y: "10%" }}    // アンマウント時
+              exit={{ opacity: 0, y: 0 }}    // アンマウント時（元の位置に戻す）
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
@@ -133,7 +142,7 @@ export default function Home({
           <motion.div
             initial={{ opacity: 0, y: "10%" }} // 初期状態
             whileInView={{ opacity: 1, y: "0%" }} // マウント時
-            exit={{ opacity: 0, y: "10%" }}    // アンマウント時
+            exit={{ opacity: 0, y: 0 }}    // アンマウント時（元の位置に戻す）
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
@@ -192,6 +201,8 @@ export default function Home({
     </>
   );
 }
+
+export default React.memo(Home);
 
 // データをテンプレートに受け渡す部分の処理を記述します
 export const getStaticProps = async () => {

@@ -7,11 +7,9 @@ import classnames from 'classnames';
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleMenuButtonClick = () => {
-    console.log('handleMenuButtonClick');
     setIsMenuOpen(!isMenuOpen);
   };
   const handleOverlayClick = () => {
-    console.log('handleOverlayClick');
     setIsMenuOpen(false);
   };
 
@@ -113,3 +111,4 @@ export default function Header() {
     </>
   );
 }
+
