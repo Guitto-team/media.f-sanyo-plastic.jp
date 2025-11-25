@@ -11,7 +11,7 @@ import { Flex } from 'components/foundation/flex';
 import Seo from 'components/foundation/seo';
 import { CardList } from 'components/ui-projects/card-list';
 import { TagList } from 'components/ui-projects/tag-list';
-import { motion, useScroll } from 'framer-motion'
+import { motion, useScroll } from 'motion/react'
 import { Typography } from 'components/ui-parts/typography';
 import { Eyecatch } from 'components/ui-parts/eyecatch';
 import { Category } from 'components/ui-parts/category';

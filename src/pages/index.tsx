@@ -9,7 +9,7 @@ import LayoutStack from 'components/foundation/layout-stack';
 import LayoutSection from 'components/foundation/layout-section';
 import Seo from 'components/foundation/seo';
 import { CardList } from 'components/ui-projects/card-list';
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Pagination } from 'components/ui-projects/pagination';
 import { Typography } from 'components/ui-parts/typography';
 import { TagList } from 'components/ui-projects/tag-list';

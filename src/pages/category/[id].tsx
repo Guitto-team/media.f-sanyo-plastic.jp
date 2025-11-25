@@ -7,7 +7,7 @@ import LayoutInner from 'components/foundation/layout-inner';
 import LayoutStack from 'components/foundation/layout-stack';
 import Seo from 'components/foundation/seo';
 import { CardList } from 'components/ui-projects/card-list';
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Typography } from 'components/ui-parts/typography';
 
 export default function CategoryId({ blogs, recommendBlogs, category, tag, id }) {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence } from 'motion/react'
 import TagManager from 'react-gtm-module'
 
 import '../styles/reset.scss'
@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps, router }) {
 
   return (
     <>
-      <AnimatePresence exitBeforeEnter onExitComplete={() => window.scrollTo(0, 0)}>
+      <AnimatePresence onExitComplete={() => window.scrollTo(0, 0)}>
         <Component key={router.asPath} {...pageProps} />
       </AnimatePresence>
     </>
