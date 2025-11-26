@@ -3,8 +3,18 @@ import Link from 'next/link';
 import styles from './index.module.scss';
 import Image from 'next/image';
 import classnames from 'classnames';
+import { TagList } from '../tag-list';
+import { CategoryList } from '../category-list';
 
-export default function Header() {
+export interface HeaderProps {
+  categories?: any,
+  tags?: any
+}
+
+export const Header: React.FC<HeaderProps> = ({
+  categories,
+  tags
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleMenuButtonClick = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -15,6 +25,12 @@ export default function Header() {
 
   const logoFillColor = isMenuOpen ? 'white' : 'black';
   const logoFillColor2 = isMenuOpen ? 'white' : '#1A1A1A';
+
+  const [activeButton, setActiveButton] = useState('category');
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    const buttonDataToggle = event.currentTarget.getAttribute('data-toggle');
+    setActiveButton(buttonDataToggle);
+  };
 
   return (
     <>
@@ -50,7 +66,12 @@ export default function Header() {
         </button>
         <ul className={styles.lists}>
           <li className={styles.listsItem}>
-            <Link href={'/'} scroll={false} className={styles.link}>
+            <Link
+              href={'https://www.f-sanyo-plastic.jp/'}
+              scroll={false}
+              className={styles.link}
+              target='_blank'
+            >
               <i className={styles.icon}>
                 <Image src={'/images/home.svg'} alt={'HOMEのアイコン'} width={22} height={21} />
               </i>
@@ -58,7 +79,7 @@ export default function Header() {
           </li>
           <li className={styles.listsItem}>
             <Link
-              href={`https://www.f-sanyo-plastic.jp/`}
+              href={`https://www.f-sanyo-plastic.jp/#section-28`}
               scroll={false}
               className={styles.link}
               target='_blank'
@@ -70,17 +91,63 @@ export default function Header() {
           </li>
         </ul>
         <ul className={classnames(styles.hamburgerMenu, isMenuOpen ? styles.isOpen : '')}>
-          <li className={styles.iconMenu}>
-            <Link
-              href={`https://www.f-sanyo-plastic.jp/`}
-              scroll={false}
-              className={styles.link}
-              target='_blank'
-            >
-              <i className={styles.icon}>
-                <Image src={'/images/mail.svg'} alt={'CONTACTのアイコン'} width={25} height={18} />
-              </i>
-            </Link>
+          {categories && tags && (
+            <li>
+              <ul className={styles.navigationList}>
+                <li className={styles.navigationItem}>
+                  <button className={classnames(styles.button, activeButton === 'category' ? styles.isActive : '')} onClick={handleClick} data-toggle='category' data-content='navs'>
+                    <i className={styles.buttonIcon}>
+                      <Image src={'/images/category.svg'} alt={'カテゴリアイコン'} width={18} height={13} />
+                    </i>
+                    <span className={styles.buttonText}>カテゴリ</span>
+                  </button>
+                </li>
+                <li className={styles.navigationItem}>
+                  <button className={classnames(styles.button, activeButton === 'tag' ? styles.isActive : '')} onClick={handleClick} data-toggle='tag' data-content='navs'>
+                    <i className={styles.buttonIcon}>
+                      <Image src={'/images/tag.svg'} alt={'タグアイコン'} width={18} height={18} />
+                    </i>
+                    <span className={styles.buttonText}>タグ一覧</span>
+                  </button>
+                </li>
+              </ul>
+              <ul className={styles.navigationContent}>
+                <li className={classnames(styles.content, activeButton === 'category' ? styles.isActive : '')} data-toggle='category'>
+                  <CategoryList contents={categories} />
+                </li>
+                <li className={classnames(styles.content, activeButton === 'tag' ? styles.isActive : '')} data-toggle='tag'>
+                  <TagList contents={tags} justifyContent='j-flex-start' />
+                </li>
+              </ul>
+            </li>
+          )}
+          <li>
+            <ul className={styles.iconMenuList}>
+              <li className={styles.iconMenu}>
+                <Link
+                  href={'https://www.f-sanyo-plastic.jp/'}
+                  scroll={false}
+                  className={styles.link}
+                  target='_blank'
+                >
+                  <i className={styles.icon}>
+                    <Image src={'/images/home.svg'} alt={'HOMEのアイコン'} width={22} height={21} />
+                  </i>
+                </Link>
+              </li>
+              <li className={styles.iconMenu}>
+                <Link
+                  href={`https://www.f-sanyo-plastic.jp/#section-28`}
+                  scroll={false}
+                  className={styles.link}
+                  target='_blank'
+                >
+                  <i className={styles.icon}>
+                    <Image src={'/images/mail.svg'} alt={'CONTACTのアイコン'} width={25} height={18} />
+                  </i>
+                </Link>
+              </li>
+            </ul>
           </li>
           <li className={styles.bannerMenu}>
             <Link
@@ -112,3 +179,4 @@ export default function Header() {
   );
 }
 
+export default React.memo(Header);

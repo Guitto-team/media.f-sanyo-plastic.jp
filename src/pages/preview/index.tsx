@@ -39,7 +39,7 @@ export default function BlogId({ blog, categoryBlogs, category, tag }) {
         imageUrl={blog.eyecatch?.url}
       />
 
-      <Header />
+      <Header categories={category} tags={tag} />
       <Sidebar categories={category} tags={tag} />
 
       <Main>

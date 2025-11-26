@@ -125,20 +125,30 @@
 .hamburgerMenu {
   opacity: 0;
   position: absolute;
-  top: calc(var(--header-height) + 50px);
-  width: 80%;
+  top: var(--header-height);
+  padding-top: 25px;
+  padding-inline: 10%;
+  width: 100%;
+  max-height: calc(100vh - var(--header-height));
   pointer-events: none;
-  
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   &.isOpen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
     opacity: 1;
     pointer-events: auto;
     transition: opacity 0.5s 0.3s;
   }
+}
+
+.iconMenuList {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 .iconMenu {
@@ -155,9 +165,85 @@
 }
 
 .bannerMenu {
+  margin-top: 1rem;
   width: 100%;
 
   img {
     width: 100%;
+  }
+}
+
+.navigationList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 2px solid var(--black);
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+}
+
+.navigationItem {
+  &:hover {
+    .button {
+      background-color: var(--black);
+    }
+    .buttonText {
+      color: var(--white);
+    }
+    .buttonIcon {
+      filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(118deg) brightness(103%) contrast(102%);
+    }
+  }
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #dddad5;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    transition: 0.3s;
+
+    &.isActive,
+    &:focus {
+      background-color: var(--black);
+      opacity: 1;
+      .buttonText {
+        color: var(--white);
+      }
+      .buttonIcon {
+        filter: invert(100%) sepia(1%) saturate(458%) hue-rotate(46deg) brightness(113%)
+          contrast(100%);
+      }
+    }
+  }
+  .buttonText {
+    font-size: 12px;
+    transition: 0.3s;
+    color: #b3b3b3;
+  }
+  .buttonIcon {
+    display: grid;
+    place-content: center;
+    transition: 0.3s;
+    width: 17px;
+    height: 17px;
+    filter: invert(100%) sepia(12%) saturate(2854%) hue-rotate(176deg) brightness(76%) contrast(84%);
+  }
+}
+
+.navigationContent {
+  padding: 1rem;
+  background-color: var(--lightbrown);
+  .content {
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+
+    &.isActive {
+      height: auto;
+      opacity: 1;
+      pointer-events: all;
+    }
   }
 }
