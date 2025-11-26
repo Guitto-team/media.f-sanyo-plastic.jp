@@ -16,7 +16,7 @@ export default function Home({ blogs, totalCount, currentPageNumber, category, t
     <>
       <Seo title={`記事一覧ページ ${currentPageNumber} / ${Math.ceil(totalCount / limit)}`} />
 
-      <Header />
+      <Header categories={category} tags={tag} />
       <Sidebar categories={category} tags={tag} />
       <Main>
         <LayoutInner size='large'>

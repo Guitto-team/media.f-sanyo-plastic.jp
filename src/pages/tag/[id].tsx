@@ -21,7 +21,7 @@ export default function TagId({ blogs, recommendBlogs, category, tag, id }) {
         description={`${target.name} の記事一覧ページです。`}
       />
 
-      <Header />
+      <Header categories={category} tags={tag} />
       <Sidebar categories={category} tags={tag} />
 
       <Main>

@@ -85,7 +85,7 @@ export const Home: React.FC<HomeProps> = ({
     <>
       <Seo />
 
-      <Header />
+      <Header categories={categories} tags={tags} />
       <Sidebar categories={categories} tags={tags} />
       <Main noPadding>
         <div className={styles.carouselContainer}>
