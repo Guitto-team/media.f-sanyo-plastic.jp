@@ -22,27 +22,47 @@
 
   &.isOpen {
     background-color: transparent;
+
+    .logoText {
+      color: var(--white);
+    }
   }
 }
 
 .home {
   display: grid;
   place-content: center;
-  height: 80%;
+  gap: 5px;
+  height: fit-content;
   max-width: 87%;
   text-decoration: none;
-  aspect-ratio: 384 / 44;
+  text-align: center;
   margin-top: auto;
+  margin-bottom: 0.5rem;
   @include mq {
-    margin-top: unset;
+    gap: 8px;
+    margin-bottom: 1rem;
   }
 
   svg {
-    height: 100%;
+    height: 30px;
+    @include mq {
+      height: 51px;
+    }
   }
 
   path {
     transition: fill 0.5s;
+  }
+}
+
+.logoText {
+  letter-spacing: 0.25em;
+  font-weight: 500;
+  transition: 0.5s;
+  font-size: 8px;
+  @include mq {
+    font-size: 14px;
   }
 }
 
