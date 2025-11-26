@@ -1,3 +1,84 @@
 .text-red {
   color: var(--red);
 }
+
+.swiper-wrapper {
+  align-items: center;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  display: grid;
+  place-content: center;
+  width: 40px;
+  height: 40px;
+  background: black;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  @include mq {
+    width: 50px;
+    height: 50px;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    @include mq {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.swiper-horizontal {
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0;
+  }
+  
+  .swiper-button-prev {
+    left: 3% !important;
+    @include mq {
+      left: 14.5% !important;
+    }
+    @include mq(xxl) {
+      left: 24.7% !important;
+    }
+
+    &:after {
+      background-image: url('/images/left-arrow.svg');
+    }
+  }
+
+  .swiper-button-next {
+    right: 3% !important;
+    @include mq {
+      right: 14.5% !important;
+    }
+    @include mq(xxl) {
+      right: 24.7% !important;
+    }
+
+    &:after {
+      background-image: url('/images/right-arrow.svg');
+    }
+  }
+}
+
+.swiper-navigation-icon {
+  display: none;
+}
+
+.swiper-button-disabled {
+  opacity: 0.35;
+}

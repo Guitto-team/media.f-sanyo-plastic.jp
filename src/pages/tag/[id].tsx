@@ -7,7 +7,7 @@ import LayoutInner from 'components/foundation/layout-inner';
 import LayoutStack from 'components/foundation/layout-stack';
 import Seo from 'components/foundation/seo';
 import { CardList } from 'components/ui-projects/card-list';
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Typography } from 'components/ui-parts/typography';
 
 export default function TagId({ blogs, recommendBlogs, category, tag, id }) {
@@ -37,7 +37,17 @@ export default function TagId({ blogs, recommendBlogs, category, tag, id }) {
               {blogs.length === 0 ? (
                 <Typography html='h6' textAlign='center'>コンテンツがありません</Typography>
               ) : (
-                <CardList contents={blogs} size='large' />
+                <CardList
+                  contents={blogs}
+                  columnPc='col3'
+                  columnSp='col1'
+                  cardProps={{
+                    cardType: 'column',
+                    info: 'full',
+                    spSize: 'medium',
+                    pcSize: 'medium'
+                  }}
+                />
               )}
             </motion.div>
 

@@ -1,5 +1,15 @@
 .eyecatch {
-  aspect-ratio: 24 / 11;
-  border-radius: 6px;
+  position: relative;
+  border-radius: 10px;
   overflow: hidden;
+
+  &.ar1 {
+    aspect-ratio: 24 / 11;
+  }
+  &.ar2 {
+    aspect-ratio: 25 / 16;
+  }
+  &.ar3 {
+    aspect-ratio: 19 / 12;
+  }
 }

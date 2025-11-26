@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { client } from 'libs/client';
 import Header from 'components/ui-projects/header';
 import Footer from 'components/ui-projects/footer';
@@ -8,13 +8,13 @@ import LayoutInner from 'components/foundation/layout-inner';
 import LayoutStack from 'components/foundation/layout-stack';
 import Seo from 'components/foundation/seo';
 import { CardList } from 'components/ui-projects/card-list';
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Pagination } from 'components/ui-projects/pagination';
 
-export default function Home({ blogs, totalCount, currentPageNumber, category, tag }) {
+export default function Home({ blogs, totalCount, currentPageNumber, category, tag, limit }) {
   return (
     <>
-      <Seo title='Blog Top' />
+      <Seo title={`記事一覧ページ ${currentPageNumber} / ${Math.ceil(totalCount / limit)}`} />
 
       <Header />
       <Sidebar categories={category} tags={tag} />
@@ -28,9 +28,19 @@ export default function Home({ blogs, totalCount, currentPageNumber, category, t
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <CardList contents={blogs} size="large" />
+              <CardList
+                contents={blogs}
+                columnPc='col3'
+                columnSp='col1'
+                cardProps={{
+                  cardType: 'column',
+                  info: 'full',
+                  spSize: 'medium',
+                  pcSize: 'medium'
+                }}
+              />
             </motion.div>
-            <Pagination currentPageNumber={currentPageNumber} maxPageNumber={Math.ceil(totalCount / 10)} />
+            <Pagination currentPageNumber={currentPageNumber} maxPageNumber={Math.ceil(totalCount / limit)} />
           </LayoutStack>
         </LayoutInner>
       </Main>
@@ -43,17 +53,17 @@ export default function Home({ blogs, totalCount, currentPageNumber, category, t
 export const getStaticPaths = async () => {
   const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
   const data = await client.get({ endpoint: 'blog' });
-
+  const limit = 10;
   const { totalCount } = data;
-  const paths = range(1, Math.ceil(totalCount / 10)).map((i) => `/blog/page/${i}`);
+  const paths = range(1, Math.ceil(totalCount / limit)).map((i) => `/blog/page/${i}`);
   return { paths, fallback: false };
 };
 
 // データをテンプレートに受け渡す部分の処理を記述します
 export const getStaticProps = async (context) => {
   const numId = context.params.id;
-  const offset = (numId - 1) * 10;
   const limit = 10;
+  const offset = (numId - 1) * limit;
   const queries = { offset: offset, limit: limit };
   const data = await client.get({ endpoint: 'blog', queries: queries });
 
@@ -67,6 +77,7 @@ export const getStaticProps = async (context) => {
       currentPageNumber: numId,
       category: categoryData.contents,
       tag: tagData.contents,
+      limit: limit,
     },
   };
 };

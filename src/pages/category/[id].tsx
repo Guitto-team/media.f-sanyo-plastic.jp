@@ -7,7 +7,7 @@ import LayoutInner from 'components/foundation/layout-inner';
 import LayoutStack from 'components/foundation/layout-stack';
 import Seo from 'components/foundation/seo';
 import { CardList } from 'components/ui-projects/card-list';
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Typography } from 'components/ui-parts/typography';
 
 export default function CategoryId({ blogs, recommendBlogs, category, tag, id }) {
@@ -33,7 +33,20 @@ export default function CategoryId({ blogs, recommendBlogs, category, tag, id })
               animate={{ opacity: 1, y: "0%" }} // マウント時
               exit={{ opacity: 0, y: "10%" }}    // アンマウント時            
             >
-              {blogs.length === 0 ? <Typography html='p' textAlign='center'>コンテンツがありません</Typography> : <CardList contents={blogs} size='large' />}
+              {blogs.length === 0 ?
+                <Typography html='p' textAlign='center'>コンテンツがありません</Typography> :
+                <CardList
+                  contents={blogs}
+                  columnPc='col3'
+                  columnSp='col1'
+                  cardProps={{
+                    cardType: 'column',
+                    info: 'full',
+                    spSize: 'medium',
+                    pcSize: 'medium'
+                  }}
+                />
+              }
             </motion.div>
           </LayoutStack>
         </LayoutInner>
