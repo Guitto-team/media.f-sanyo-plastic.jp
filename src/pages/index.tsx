@@ -111,7 +111,7 @@ export const Home: React.FC<HomeProps> = ({
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className={styles.titlePickup}>PICKUP<span>以下ダミーテキスト以下ダミーテキスト</span></h2>
+              <h2 className={styles.titlePickup}>PICKUP<span>カテゴリ別の注目記事をご覧いただけます</span></h2>
 
               <TabNavigation
                 categories={categories}
@@ -156,7 +156,7 @@ export const Home: React.FC<HomeProps> = ({
 
                   <div className={styles.newlyContainer}>
                     <div id='newly'>
-                      <h2 className={styles.title}>新着<span>以下ダミーテキスト以下ダミーテキスト</span></h2>
+                      <h2 className={styles.title}>新着<span>サンプラとプラスチック生成の今がわかる新着記事です</span></h2>
                     </div>
 
                     <CardList contents={newlyBlogs} columnPc='col1' columnSp='col2' cardProps={{ cardType: 'row', info: 'full', spSize: 'small' }} />
