@@ -89,7 +89,7 @@ export default function BlogId({ blog, categoryBlogs, category, tag }) {
                 exit={{ opacity: 0, y: -50 }}    // アンマウント時
                 transition={{ duration: 0.5 }}
               >
-                <Typography html='h1'>{blog.title}</Typography>
+                <Typography html='h1' weight='extra-bold'>{blog.title}</Typography>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, x: -50 }} // 初期状態

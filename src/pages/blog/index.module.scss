@@ -1,25 +1,36 @@
 .post {
   & > h1 {
     font-size: 28px;
-    font-weight: bold;
-    margin: 40px 0 20px;
+    font-weight: 900;
+    margin: 70px 0 0;
     background-color: #eee;
     padding: 10px 20px;
     border-radius: 5px;
+    @include mq {
+      font-size: 40px;
+    }
   }
 
   & > h2 {
     font-size: 24px;
-    font-weight: bold;
-    margin: 40px 0 16px;
+    font-weight: 900;
+    margin: 60px 0 0;
     border-bottom: 1px solid #ddd;
+    @include mq {
+      font-size: 30px;
+    }
   }
 
   & > h3 {
     display: flex;
     align-items: center;
+    font-weight: 900;
     gap: 8px;
-    margin: 20px 0 5px;
+    margin: 30px 0 0;
+    font-size: 20px;
+    @include mq {
+      font-size: 24px;
+    }
     &:before {
       content: "";
       width: 3px;
@@ -29,8 +40,8 @@
   }
 
   & > p {
-    line-height: 1.8;
-    letter-spacing: 0.2px;
+    line-height: 2.2;
+    letter-spacing: 0.05em;
   }
 
   & > ol {
@@ -63,6 +74,10 @@
 
   table {
     border: 1px solid var(--border-c);
+  }
+
+  & > * + * {
+    margin-top: 2em;
   }
 }
 

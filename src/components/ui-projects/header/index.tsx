@@ -88,86 +88,88 @@ export const Header: React.FC<HeaderProps> = ({
             </Link>
           </li>
         </ul>
-        <ul className={classnames(styles.hamburgerMenu, isMenuOpen ? styles.isOpen : '')}>
-          {categories && tags && (
+        <div className={classnames(styles.hamburgerMenu, isMenuOpen ? styles.isOpen : '')}>
+          <ul className={styles.hamburgerMenuInner}>
+            {categories && tags && (
+              <li>
+                <ul className={styles.navigationList}>
+                  <li className={styles.navigationItem}>
+                    <button className={classnames(styles.button, activeButton === 'category' ? styles.isActive : '')} onClick={handleClick} data-toggle='category' data-content='navs'>
+                      <i className={styles.buttonIcon}>
+                        <Image src={'/images/category.svg'} alt={'カテゴリアイコン'} width={18} height={13} />
+                      </i>
+                      <span className={styles.buttonText}>カテゴリ</span>
+                    </button>
+                  </li>
+                  <li className={styles.navigationItem}>
+                    <button className={classnames(styles.button, activeButton === 'tag' ? styles.isActive : '')} onClick={handleClick} data-toggle='tag' data-content='navs'>
+                      <i className={styles.buttonIcon}>
+                        <Image src={'/images/tag.svg'} alt={'タグアイコン'} width={18} height={18} />
+                      </i>
+                      <span className={styles.buttonText}>タグ一覧</span>
+                    </button>
+                  </li>
+                </ul>
+                <ul className={styles.navigationContent}>
+                  <li className={classnames(styles.content, activeButton === 'category' ? styles.isActive : '')} data-toggle='category'>
+                    <CategoryList contents={categories} />
+                  </li>
+                  <li className={classnames(styles.content, activeButton === 'tag' ? styles.isActive : '')} data-toggle='tag'>
+                    <TagList contents={tags} justifyContent='j-flex-start' />
+                  </li>
+                </ul>
+              </li>
+            )}
             <li>
-              <ul className={styles.navigationList}>
-                <li className={styles.navigationItem}>
-                  <button className={classnames(styles.button, activeButton === 'category' ? styles.isActive : '')} onClick={handleClick} data-toggle='category' data-content='navs'>
-                    <i className={styles.buttonIcon}>
-                      <Image src={'/images/category.svg'} alt={'カテゴリアイコン'} width={18} height={13} />
+              <ul className={styles.iconMenuList}>
+                <li className={styles.iconMenu}>
+                  <Link
+                    href={'https://www.f-sanyo-plastic.jp/'}
+                    scroll={false}
+                    className={styles.link}
+                    target='_blank'
+                  >
+                    <i className={styles.icon}>
+                      <Image src={'/images/home.svg'} alt={'HOMEのアイコン'} width={22} height={21} />
                     </i>
-                    <span className={styles.buttonText}>カテゴリ</span>
-                  </button>
+                  </Link>
                 </li>
-                <li className={styles.navigationItem}>
-                  <button className={classnames(styles.button, activeButton === 'tag' ? styles.isActive : '')} onClick={handleClick} data-toggle='tag' data-content='navs'>
-                    <i className={styles.buttonIcon}>
-                      <Image src={'/images/tag.svg'} alt={'タグアイコン'} width={18} height={18} />
+                <li className={styles.iconMenu}>
+                  <Link
+                    href={`https://www.f-sanyo-plastic.jp/#section-28`}
+                    scroll={false}
+                    className={styles.link}
+                    target='_blank'
+                  >
+                    <i className={styles.icon}>
+                      <Image src={'/images/mail.svg'} alt={'CONTACTのアイコン'} width={25} height={18} />
                     </i>
-                    <span className={styles.buttonText}>タグ一覧</span>
-                  </button>
-                </li>
-              </ul>
-              <ul className={styles.navigationContent}>
-                <li className={classnames(styles.content, activeButton === 'category' ? styles.isActive : '')} data-toggle='category'>
-                  <CategoryList contents={categories} />
-                </li>
-                <li className={classnames(styles.content, activeButton === 'tag' ? styles.isActive : '')} data-toggle='tag'>
-                  <TagList contents={tags} justifyContent='j-flex-start' />
+                  </Link>
                 </li>
               </ul>
             </li>
-          )}
-          <li>
-            <ul className={styles.iconMenuList}>
-              <li className={styles.iconMenu}>
-                <Link
-                  href={'https://www.f-sanyo-plastic.jp/'}
-                  scroll={false}
-                  className={styles.link}
-                  target='_blank'
-                >
-                  <i className={styles.icon}>
-                    <Image src={'/images/home.svg'} alt={'HOMEのアイコン'} width={22} height={21} />
-                  </i>
-                </Link>
-              </li>
-              <li className={styles.iconMenu}>
-                <Link
-                  href={`https://www.f-sanyo-plastic.jp/#section-28`}
-                  scroll={false}
-                  className={styles.link}
-                  target='_blank'
-                >
-                  <i className={styles.icon}>
-                    <Image src={'/images/mail.svg'} alt={'CONTACTのアイコン'} width={25} height={18} />
-                  </i>
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li className={styles.bannerMenu}>
-            <Link
-              href={`https://www.f-sanyo-plastic.jp/`}
-              scroll={false}
-              className={styles.banner}
-              target='_blank'
-            >
-              <Image src={'/images/banner-official.webp'} alt={'公式バナー'} width={300} height={141} />
-            </Link>
-          </li>
-          <li className={styles.bannerMenu}>
-            <Link
-              href={`https://bekopla.mirai-work.org/`}
-              scroll={false}
-              className={styles.banner}
-              target='_blank'
-            >
-              <Image src={'/images/banner-online-shop.webp'} alt={'公式オンラインショップバナー'} width={300} height={171} />
-            </Link>
-          </li>
-        </ul>
+            <li className={styles.bannerMenu}>
+              <Link
+                href={`https://www.f-sanyo-plastic.jp/`}
+                scroll={false}
+                className={styles.banner}
+                target='_blank'
+              >
+                <Image src={'/images/banner-official.webp'} alt={'公式バナー'} width={300} height={141} />
+              </Link>
+            </li>
+            <li className={styles.bannerMenu}>
+              <Link
+                href={`https://bekopla.mirai-work.org/`}
+                scroll={false}
+                className={styles.banner}
+                target='_blank'
+              >
+                <Image src={'/images/banner-online-shop.webp'} alt={'公式オンラインショップバナー'} width={300} height={171} />
+              </Link>
+            </li>
+          </ul>
+        </div>
       </header>
       <div
         className={classnames(styles.overlay, isMenuOpen ? styles.isOpen : '')}
