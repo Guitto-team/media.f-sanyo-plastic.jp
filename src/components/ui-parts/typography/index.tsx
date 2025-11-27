@@ -5,7 +5,7 @@ import classnames from 'classnames';
 export interface TypographyProps {
   children: React.ReactNode,
   html?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span',
-  weight?: 'light' | 'normal' | 'bold',
+  weight?: 'light' | 'normal' | 'bold' | 'extra-bold',
   textAlign?: 'left' | 'center' | 'right',
   color?: 'black' | 'white' | 'main'
 }
