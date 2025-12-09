@@ -113,7 +113,7 @@ export default function BlogId({ blog, categoryBlogs, category, tag }) {
             <LayoutStack>
               <Flex justifyContent='j-flex-start' alignItems='a-center' gap='xsmall' flexWrap='wrap'>
                 {blog.category && <Category content={blog.category.name} />}
-                {blog.tag.map((content) => (
+                {blog.tag?.map((content) => (
                   <Tag key={content.id} content={content} />
                 ))}
               </Flex>
